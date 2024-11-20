@@ -10,6 +10,6 @@ Universidad Nacional del comahue
 
 # Integrantes del grupo
 
-**Franco Jara** legajo: 4474 - mail:jaracx@hotmail.com -Github:jaracx
+**Franco Jara** legajo: 4474 - mail: jaracx@hotmail.com -Github: jaracx
 
-**Facundo Ulloa** legajo: - mail: -Github:
+**Facundo Ulloa** legajo: FAI-4713 - mail: facundoulloa1.epet20@gmail.com -Github: FacundoUlloa123
