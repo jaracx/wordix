@@ -84,7 +84,7 @@ do {
             break;
         case 2: 
             //Jugar al Wordix con una palabra aleatoria
-            
+            $partida = jugarWordix("MELON", strtolower("Juan"));
             break;
         case 3: 
             //Mostrar una partida
