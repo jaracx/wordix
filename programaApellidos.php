@@ -79,19 +79,42 @@ do {
     
     switch ($opcion) {
         case 1: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
+            //Jugar al Wordix con una palabra elegida
 
             break;
         case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
-
+            //Jugar al Wordix con una palabra aleatoria
+            
             break;
         case 3: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-
+            //Mostrar una partida
+            
             break;
         
-            //...
+        case 4: 
+            //Mostrar la primer partida ganadora
+
+            break;
+        case 5: 
+            //Mostrar resumen de Jugador
+
+            break;
+        case 6: 
+            //Mostrar listado de partidas ordenadas por jugador y por palabra
+
+            break;
+        case 7: 
+            //Agregar una palabra de 5 letras a Wordix
+
+            break;
+        case 8: 
+            //Salir
+
+            break;
+        default:
+            echo "Opción no válida. Intente nuevamente.\n";
+
+        break;
     }
 } while ($opcion != 8);
 
