@@ -58,21 +58,21 @@ function cargarColeccionPalabras()
 
 do {
 
-    //Menú de opciones
-    echo "\n**************************************";
-    echo "***     MENÚ DE OPCIONES - WORDIX    ***\n";
-    echo "**************************************\n";
-    echo "";
-    echo "1) Jugar al Wordix con una palabra elegida\n";
-    echo "2) Jugar al Wordix con una palabra aleatoria\n";
-    echo "3) Mostrar una partida\n";
-    echo "4) Mostrar la primer partida ganadora\n";
-    echo "5) Mostrar resumen de Jugador\n";
-    echo "6) Mostrar listado de partidas ordenadas por jugador y por palabra\n";
-    echo "7) Agregar una palabra de 5 letras a Wordix\n";
-    echo "8) Salir\n";  # Opción de salir
-    echo "";
-    echo "Elija una opción: \n";
+    // Menú de opciones
+    echo "\n\e[1;37;44m**************************************\e[0m\n";  // Línea con color
+    echo "\e[1;37;44m***     MENÚ DE OPCIONES - WORDIX    ***\e[0m\n";
+    echo "\e[1;37;44m**************************************\e[0m\n";  // Línea con color
+    echo "\n";
+    echo "\e[1;33m1)\e[0m Jugar al Wordix con una palabra elegida\n";
+    echo "\e[1;33m2)\e[0m Jugar al Wordix con una palabra aleatoria\n";
+    echo "\e[1;33m3)\e[0m Mostrar una partida\n";
+    echo "\e[1;33m4)\e[0m Mostrar la primer partida ganadora\n";
+    echo "\e[1;33m5)\e[0m Mostrar resumen de Jugador\n";
+    echo "\e[1;33m6)\e[0m Mostrar listado de partidas ordenadas por jugador y por palabra\n";
+    echo "\e[1;33m7)\e[0m Agregar una palabra de 5 letras a Wordix\n";
+    echo "\e[1;31m8)\e[0m Salir\n";  // Opción de salir en color rojo
+    echo "\n";
+    echo "Elija una opción: ";
 
     $opcion = trim(fgets(STDIN));
 
