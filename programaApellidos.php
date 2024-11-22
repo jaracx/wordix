@@ -80,7 +80,12 @@ do {
     switch ($opcion) {
         case 1: 
             //Jugar al Wordix con una palabra elegida
+            echo "Ingrese la palabra que desea jugar: ";
+            $palabraElegida = strtoupper(trim(fgets(STDIN)));
+            echo "Ingrese el nombre de usuario: ";
+            $nombreUsuario = strtolower(trim(fgets(STDIN)));
 
+            $partida = jugarWordix($palabraElegida, $nombreUsuario);
             break;
         case 2: 
             //Jugar al Wordix con una palabra aleatoria
@@ -97,7 +102,7 @@ do {
             break;
         case 5: 
             //Mostrar resumen de Jugador
-
+            echo "Ingrese el nombre de usuario: ";
             break;
         case 6: 
             //Mostrar listado de partidas ordenadas por jugador y por palabra
@@ -105,11 +110,11 @@ do {
             break;
         case 7: 
             //Agregar una palabra de 5 letras a Wordix
-
+            echo "Ingrese la palabra de 5 letras a agregar: ";
             break;
         case 8: 
             //Salir
-
+            echo "¡Gracias por jugar Wordix!\n";
             break;
         default:
             echo "Opción no válida. Intente nuevamente.\n";

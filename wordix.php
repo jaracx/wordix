@@ -127,7 +127,7 @@ function escribirMensajeBienvenida($usuario)
     echo "***************************************************\n";
     echo "** Hola ";
     escribirAmarillo($usuario);
-    echo " Juguemos una PARTIDA de WORDIX! **\n";
+    echo " Juguemos una PARTIDA de WORDI XD! **\n";
     echo "***************************************************\n";
 }
 
