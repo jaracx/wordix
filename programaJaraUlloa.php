@@ -33,6 +33,48 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
+function cargarPartidas(){
+  $coleccionPartidas = [];
+  
+  $partida1 = [
+    "palabraWordix "=> "QUESO", "jugador" => "majo", "intentos"=> 0, "puntaje" => 0];
+  $partida2 = [
+    "palabraWordix "=> "CASAS", "jugador" => "rudolf", "intentos"=> 3, "puntaje" => 14];
+  $partida3 = [
+    "palabraWordix "=> "QUESO", "jugador" => "pink2000", "intentos"=> 3, "puntaje" => 14];
+  $partida4 = [
+    "palabraWordix "=> "HUEVO", "jugador" => "franco", "intentos"=> 3, "puntaje" => 14];
+  $partida5 = [
+    "palabraWordix "=> "GOTAS", "jugador" => "juan", "intentos"=> 0, "puntaje" => 0];
+  $partida6 = [
+    "palabraWordix "=> "FUEGO", "jugador" => "facu", "intentos"=> 0, "puntaje" => 0];
+  $partida7 = [
+    "palabraWordix "=> "YUYOS", "jugador" => "carlos", "intentos"=> 0, "puntaje" => 0];
+  $partida8 = [
+    "palabraWordix "=> "PIANO", "jugador" => "franklin", "intentos"=> 0, "puntaje" => 0];
+  $partida9 = [
+    "palabraWordix "=> "PISOS", "jugador" => "tuka", "intentos"=> 0, "puntaje" => 0];
+  $partida10 = [
+    "palabraWordix "=> "MELON", "jugador" => "tomi", "intentos"=> 0, "puntaje" => 0];
+    array_push($coleccionPartidas, $partida1, $partida2, $partida3, $partida4, $partida5, $partida6, $partida7, $partida8, $partida9, $partida10);
+    return $coleccionPartidas;
+}
+
+function seleccionarOpcion(){
+  echo "\n";
+  echo "Seleccione una opcion del 1 al 8. \n";
+  echo "1) Jugar al wordix con una palabra elegida. \n";
+  echo "2) Jugar al wordix con una palabra aleatoria. \n";
+  echo "3) Mostrar una partida. \n";
+  echo "4) Mostrar la primer partida ganadora. \n";
+  echo "5) Mostrar resumen de Jugador. \n";
+  echo "6) Mostrar listado de partidas ordenadas por jugador y por palabra. \n";
+  echo "7) Agregar una palabra de 5 letras a Wordix. \n";
+  echo "8) salir. \n";
+  $opcion = solicitarNumeroEntre(1,8);
+  return $opcion;
+}
+
 /* ****COMPLETAR***** */
 
 
@@ -49,11 +91,12 @@ function cargarColeccionPalabras()
 
 //Proceso:
 
-//$partida = jugarWordix("MELON", strtolower("Facu"));
-//print_r($partida);
-//imprimirResultado($partida);
+/*
+$partida = jugarWordix("MELON", strtolower("Facu"));
+print_r($partida);
+imprimirResultado($partida);  
 
-
+*/
 
 
 do {
@@ -73,17 +116,26 @@ do {
     echo "\e[1;31m8)\e[0m Salir\n";  // Opción de salir en color rojo
     echo "\n";
     echo "Elija una opción: ";
-
-    $opcion = trim(fgets(STDIN));
-
+    
+    $opcion = seleccionarOpcion();
     
     switch ($opcion) {
         case 1: 
-            //Jugar al Wordix con una palabra elegida
-            echo "Ingrese la palabra que desea jugar: ";
-            $palabraElegida = strtoupper(trim(fgets(STDIN)));
-            echo "Ingrese el nombre de usuario: ";
-            $nombreUsuario = strtolower(trim(fgets(STDIN)));
+            //Jugar al Wordix con una palabra elegida 3. 
+            /*Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
+            muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
+            opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
+            válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”.*/
+            do{
+              echo "ingresar nombre";
+              $nombreUsuario = strtolower(trim(fgets(STDIN)));
+
+              if ($nombreUsuario == ""){
+                
+              }
+            }
+            
+            
 
             $partida = jugarWordix($palabraElegida, $nombreUsuario);
             break;
