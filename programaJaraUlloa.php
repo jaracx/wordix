@@ -75,6 +75,16 @@ function seleccionarOpcion(){
   return $opcion;
 }
 
+function palabraUtilizada($usuario, $palabra, $coleccionPartidas){
+  foreach ($coleccionPartidas as $partida){
+    if ($partida["jugador"] == $usuario && $partida["palabraWordix"] == $palabra){
+      return true;
+    }
+  }
+  return false;
+}
+
+
 /* ****COMPLETAR***** */
 
 
@@ -87,6 +97,12 @@ function seleccionarOpcion(){
 
 
 //Inicialización de variables:
+
+$arrayPalabras = cargarColeccionPalabras();
+$coleccionPartidas = cargarPartidas();
+$minimoPalabras = 1;
+$maximoPalabras = count($arrayPalabras);
+
 
 
 //Proceso:
@@ -125,19 +141,39 @@ do {
             /*Para visualizar el menú de opciones (que siempre es el mismo), una función seleccionarOpcion que
             muestre las opciones del menú en la pantalla (ver sección EXPLICACION 1), le solicite al usuario una
             opción válida (si la opción no es válida vuelva a solicitarla en la misma función hasta que la opción sea
-            válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”.*/
-            do{
-              echo "ingresar nombre";
-              $nombreUsuario = strtolower(trim(fgets(STDIN)));
-
+            válida), y retorne el número de la opción. La última opción del menú debe ser “Salir”.
+            1) Jugar al wordix con una palabra elegida: se inicia la partida de wordix solicitando el nombre del
+            jugador y un número de palabra para jugar. Si el número de palabra ya fue utilizada por el jugador, el
+            programa debe indicar que debe elegir otro número de palabra.
+            Luego de finalizar la partida, los datos de la partida deben ser guardados en una estructura de datos
+            de partidas (ver la sección EXPLICACION 2, de Estructura de datos del presente enunciado)
+            */
+            do {
+              echo "ingrese su nombre: ";
+              $nombreUsuario = trim(fgets(STDIN));
               if ($nombreUsuario == ""){
-                
+                  echo "El nombre de usuario no puede estar vacío. \n";
+                  $nombreValido = false;
+              } else {
+                  $nombreValido = true;
+              
               }
-            }
             
-            
+            } while ($nombreValido);
+
+            do {
+              $numeroPalabra = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
+              // si el numero de palabra ya fue utilizada por el jugador debe elejir otro numero de palabra
+              $palabraElegida = $arrayPalabras[$numeroPalabra - 1];
+              $palabraUtilizada = palabraUtilizada($nombreUsuario, $palabraElegida, $coleccionPartidas);
+              if($palabraUtilizada){
+                echo $palabraElegida . "Ya fue utilizada, elija otra. \n";
+              } 
+                } while ($palabraUtilizada);
 
             $partida = jugarWordix($palabraElegida, $nombreUsuario);
+            $coleccionPartidas[] = $partida;
+
             break;
         case 2: 
             //Jugar al Wordix con una palabra aleatoria
