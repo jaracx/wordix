@@ -383,7 +383,6 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         $nroIntento++;
     } while ($nroIntento <= CANT_INTENTOS && !$ganoElIntento);
 
-
     if ($ganoElIntento) {
         $nroIntento--;
         $puntaje = obtenerPuntajeWordix($nroIntento);
