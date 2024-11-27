@@ -24,9 +24,9 @@ include_once("wordix.php");
 function cargarColeccionPalabras()
 {
     $coleccionPalabras = [
-        "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
-        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS"
+        "MUJER", "QUESO", "FUEGO", "MANTA", "RASGO",
+        "PERRO", "PAPEL", "HUEVO", "TINTO", "RUEDA",
+        "VERDE", "MELON", "YUYOS", "PIANO", "GORRA"
         /* Agregar 5 palabras más */
     ];
 
@@ -37,41 +37,46 @@ function cargarPartidas(){
   $coleccionPartidas = [];
   
   $partida1 = [
-    "palabraWordix "=> "QUESO", "jugador" => "majo", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "QUESO", "jugador" => "majo", "intentos"=> 6, "puntaje" => 1];
   $partida2 = [
-    "palabraWordix "=> "CASAS", "jugador" => "rudolf", "intentos"=> 3, "puntaje" => 14];
+    "palabraWordix"=> "GORRA", "jugador" => "rudolf", "intentos"=> 3, "puntaje" => 4];
   $partida3 = [
-    "palabraWordix "=> "QUESO", "jugador" => "pink2000", "intentos"=> 3, "puntaje" => 14];
+    "palabraWordix"=> "RASGO", "jugador" => "pink2000", "intentos"=> 3, "puntaje" => 4];
   $partida4 = [
-    "palabraWordix "=> "HUEVO", "jugador" => "franco", "intentos"=> 3, "puntaje" => 14];
+    "palabraWordix"=> "HUEVO", "jugador" => "franco", "intentos"=> 3, "puntaje" => 4];
   $partida5 = [
-    "palabraWordix "=> "GOTAS", "jugador" => "juan", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "PAPEL", "jugador" => "juan", "intentos"=> 6, "puntaje" => 1];
   $partida6 = [
-    "palabraWordix "=> "FUEGO", "jugador" => "facu", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "FUEGO", "jugador" => "facu", "intentos"=> 1, "puntaje" => 6];
   $partida7 = [
-    "palabraWordix "=> "YUYOS", "jugador" => "carlos", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "YUYOS", "jugador" => "carlos", "intentos"=> 2, "puntaje" => 5];
   $partida8 = [
-    "palabraWordix "=> "PIANO", "jugador" => "franklin", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "PIANO", "jugador" => "franklin", "intentos"=> 3, "puntaje" => 4];
   $partida9 = [
-    "palabraWordix "=> "PISOS", "jugador" => "tuka", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "RUEDA", "jugador" => "tuka", "intentos"=> 5, "puntaje" => 2];
   $partida10 = [
-    "palabraWordix "=> "MELON", "jugador" => "tomi", "intentos"=> 0, "puntaje" => 0];
+    "palabraWordix"=> "MELON", "jugador" => "tomi", "intentos"=> 4, "puntaje" => 3];
     array_push($coleccionPartidas, $partida1, $partida2, $partida3, $partida4, $partida5, $partida6, $partida7, $partida8, $partida9, $partida10);
     return $coleccionPartidas;
 }
 
 function seleccionarOpcion(){
-  echo "\n";
-  echo "Seleccione una opcion del 1 al 8. \n";
-  echo "1) Jugar al wordix con una palabra elegida. \n";
-  echo "2) Jugar al wordix con una palabra aleatoria. \n";
-  echo "3) Mostrar una partida. \n";
-  echo "4) Mostrar la primer partida ganadora. \n";
-  echo "5) Mostrar resumen de Jugador. \n";
-  echo "6) Mostrar listado de partidas ordenadas por jugador y por palabra. \n";
-  echo "7) Agregar una palabra de 5 letras a Wordix. \n";
-  echo "8) salir. \n";
-  $opcion = solicitarNumeroEntre(1,8);
+    // Menú de opciones
+    echo "\n\e[1;37;44m**************************************\e[0m\n";  // Línea con color
+    echo "\e[1;37;44m***     MENÚ DE OPCIONES - WORDIX    ***\e[0m\n";
+    echo "\e[1;37;44m**************************************\e[0m\n";  // Línea con color
+    echo "\n";
+    echo "\e[1;33m1)\e[0m Jugar al Wordix con una palabra elegida\n";
+    echo "\e[1;33m2)\e[0m Jugar al Wordix con una palabra aleatoria\n";
+    echo "\e[1;33m3)\e[0m Mostrar una partida\n";
+    echo "\e[1;33m4)\e[0m Mostrar la primer partida ganadora\n";
+    echo "\e[1;33m5)\e[0m Mostrar resumen de Jugador\n";
+    echo "\e[1;33m6)\e[0m Mostrar listado de partidas ordenadas por jugador y por palabra\n";
+    echo "\e[1;33m7)\e[0m Agregar una palabra de 5 letras a Wordix\n";
+    echo "\e[1;31m8)\e[0m Salir\n";  // Opción de salir en color rojo
+    echo "\n";
+    echo "Elija una opción: \n";
+    $opcion = trim(fgets(STDIN));
   return $opcion;
 }
 
@@ -84,17 +89,38 @@ function palabraUtilizada($usuario, $palabra, $coleccionPartidas){
   return false;
 }
 
+function mostrarPartida($numeroPartida) {
+  // Cargar las partidas
+  $partidas = cargarPartidas();
+
+  // Validar número
+  if ($numeroPartida < 1 || $numeroPartida > 10) {
+      echo "Número de partida inválido.\n";
+      return;
+  }
+
+  $partida = $partidas[$numeroPartida - 1];
+
+  // Información de la partida
+  echo "Partida WORDIX $numeroPartida:\n";
+  echo "Palabra: " . $partida["palabraWordix"] . "\n";
+  echo "Jugador: " . $partida["jugador"] . "\n";
+  echo "Puntaje: " . $partida["puntaje"] . " puntos\n";
+
+  if ($partida["intentos"] == 0) {
+      echo "Intento: No adivinó la palabra\n";
+  } else {
+      echo "Intento: Adivinó la palabra en " . $partida["intentos"] . " intentos\n";
+  }
+}
 
 /* ****COMPLETAR***** */
-
-
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
 //Declaración de variables:
-
 
 //Inicialización de variables:
 
@@ -116,23 +142,6 @@ imprimirResultado($partida);
 
 
 do {
-
-    // Menú de opciones
-    echo "\n\e[1;37;44m**************************************\e[0m\n";  // Línea con color
-    echo "\e[1;37;44m***     MENÚ DE OPCIONES - WORDIX    ***\e[0m\n";
-    echo "\e[1;37;44m**************************************\e[0m\n";  // Línea con color
-    echo "\n";
-    echo "\e[1;33m1)\e[0m Jugar al Wordix con una palabra elegida\n";
-    echo "\e[1;33m2)\e[0m Jugar al Wordix con una palabra aleatoria\n";
-    echo "\e[1;33m3)\e[0m Mostrar una partida\n";
-    echo "\e[1;33m4)\e[0m Mostrar la primer partida ganadora\n";
-    echo "\e[1;33m5)\e[0m Mostrar resumen de Jugador\n";
-    echo "\e[1;33m6)\e[0m Mostrar listado de partidas ordenadas por jugador y por palabra\n";
-    echo "\e[1;33m7)\e[0m Agregar una palabra de 5 letras a Wordix\n";
-    echo "\e[1;31m8)\e[0m Salir\n";  // Opción de salir en color rojo
-    echo "\n";
-    echo "Elija una opción: ";
-    
     $opcion = seleccionarOpcion();
     
     switch ($opcion) {
@@ -149,38 +158,78 @@ do {
             de partidas (ver la sección EXPLICACION 2, de Estructura de datos del presente enunciado)
             */
             do {
-              echo "ingrese su nombre: ";
+              echo "Ingrese su nombre: ";
               $nombreUsuario = trim(fgets(STDIN));
-              if ($nombreUsuario == ""){
+            
+              // Verificar que el nombre no esté vacío
+              if ($nombreUsuario == "") {
                   echo "El nombre de usuario no puede estar vacío. \n";
-                  $nombreValido = false;
+                  $nombreValido = false; // Nombre no válido
               } else {
-                  $nombreValido = true;
-              
+                  $nombreValido = true; // Nombre válido
               }
             
-            } while ($nombreValido);
-
+            } while (!$nombreValido); // sigue hasta que el nombre sea válido
+            
             do {
-              $numeroPalabra = solicitarNumeroEntre($minimoPalabras, $maximoPalabras);
-              // si el numero de palabra ya fue utilizada por el jugador debe elejir otro numero de palabra
+              $numeroPalabra = solicitarNumeroEntre(1, 15);
+            
+              // Verificar si el número de palabra ya ha sido utilizado
               $palabraElegida = $arrayPalabras[$numeroPalabra - 1];
               $palabraUtilizada = palabraUtilizada($nombreUsuario, $palabraElegida, $coleccionPartidas);
-              if($palabraUtilizada){
-                echo $palabraElegida . "Ya fue utilizada, elija otra. \n";
-              } 
-                } while ($palabraUtilizada);
-
+            
+              if ($palabraUtilizada) {
+                echo $palabraElegida . " ya fue utilizada, elija otra. \n";
+              }
+            } while ($palabraUtilizada); //
+            
             $partida = jugarWordix($palabraElegida, $nombreUsuario);
             $coleccionPartidas[] = $partida;
 
+            
             break;
         case 2: 
-            //Jugar al Wordix con una palabra aleatoria
-            $partida = jugarWordix("MELON", strtolower("Juan"));
+            /*Jugar al wordix con una palabra aleatoria: se inicia la parda de wordix solicitando el nombre del
+            jugador. El programa elegirá una palabra aleatoria de las disponibles para jugar, el programa debe
+            asegurarse que la palabra no haya sido jugada por el Jugador.
+            Luego de finalizar la parda, los datos de la parda deben ser guardados en una estructura de datos
+            de pardas (ver la sección EXPLICACION 2, de Estructura de datos del presente enunciado)*/
+
+            do {
+              echo "Ingrese su nombre: ";
+              $nombreUsuario = trim(fgets(STDIN));
+            
+              // Verificar que el nombre no esté vacío
+              if ($nombreUsuario == "") {
+                  echo "El nombre de usuario no puede estar vacío. \n";
+                  $nombreValido = false; // Nombre no válido
+              } else {
+                  $nombreValido = true; // Nombre válido
+              }
+            
+            } while (!$nombreValido); // sigue hasta que el nombre sea válido
+
+            do {
+              $numeroAleatorio = rand(1, 15);
+
+              // Seleccionar la palabra correspondiente en el array
+              $palabraElegida = $arrayPalabras[$numeroAleatorio - 1];
+              $palabraUtilizada = palabraUtilizada($nombreUsuario, $palabraElegida, $coleccionPartidas);
+            
+              if ($palabraUtilizada) {
+                echo $palabraElegida . " ya fue utilizada, elija otra. \n";
+              }
+            } while ($palabraUtilizada); // El bucle sigue hasta que el número de palabra no haya sido utilizado
+            
+            $partida = jugarWordix($palabraElegida, $nombreUsuario);
+            $coleccionPartidas[] = $partida;
             break;
         case 3: 
-            //Mostrar una partida
+            /* Mostrar una parda: Se le solicita al usuario un número de parda y se muestra en pantalla*/
+        
+            echo "Ingrese el número de la partida (1-10): ";
+            $numeroPartida = intval(trim(fgets(STDIN))); // entrada de usuario - (intval: se asegura que el numero ingresado sea un valor entero)
+            mostrarPartida($numeroPartida);
             
             break;
         

@@ -5,7 +5,7 @@ La librería JugarWordix posee la definición de constantes y funciones necesari
 para jugar al Wordix.
 Puede ser utilizada por cualquier programador para incluir en sus programas.
 */
-
+//jugarWordix($palabraElegida, $nombreUsuario);
 /**************************************/
 /***** DEFINICION DE CONSTANTES *******/
 /**************************************/
@@ -33,6 +33,8 @@ function solicitarNumeroEntre($min, $max)
 {
     //int $numero
 
+    echo "ingresar un numero del 1 al 15: ";
+    echo "\n";
     $numero = trim(fgets(STDIN));
 
     if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
@@ -330,11 +332,24 @@ function esIntentoGanado($estructuraPalabraIntento)
 /**
  * ****COMPLETAR***** documentación de la intefaz
  */
-function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales necesarios */
+function obtenerPuntajeWordix($nroIntento)  /* ****COMPLETAR***** parámetros formales necesarios */
 {
-
-    /* ****COMPLETAR***** cuerpo de la función*/
-    return 0;
+    switch ($nroIntento) {
+        case 1:
+            return 6;
+        case 2:
+            return 5;
+        case 3:
+            return 4;
+        case 4:
+            return 3;
+        case 5:
+            return 2;
+        case 6:
+            return 1;
+        default:
+            return 0; // Puntaje para intentos mayores a 6
+    }
 }
 
 /**
@@ -350,12 +365,14 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     $teclado = iniciarTeclado();
     escribirMensajeBienvenida($nombreUsuario);
     $nroIntento = 1;
+    $ganoElIntento = false;
     do {
 
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
+
         $palabraIntento = leerPalabra5Letras();
         $indiceIntento = $nroIntento - 1;
-        $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix, $palabraIntento);
+        $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix,$palabraIntento);
         $teclado = actualizarTeclado($teclado, $arregloDeIntentosWordix[$indiceIntento]);
         /*Mostrar los resultados del análisis: */
         imprimirIntentosWordix($arregloDeIntentosWordix);
@@ -369,7 +386,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = obtenerPuntajeWordix();
+        $puntaje = obtenerPuntajeWordix($nroIntento);
         echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
     } else {
         $nroIntento = 0; //reset intento
