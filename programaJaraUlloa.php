@@ -45,13 +45,13 @@ function cargarPartidas(){
   $partida4 = [
     "palabraWordix"=> "HUEVO", "jugador" => "franco", "intentos"=> 3, "puntaje" => 4];
   $partida5 = [
-    "palabraWordix"=> "PAPEL", "jugador" => "juan", "intentos"=> 6, "puntaje" => 1];
+    "palabraWordix"=> "PAPEL", "jugador" => "majo", "intentos"=> 6, "puntaje" => 1];
   $partida6 = [
     "palabraWordix"=> "FUEGO", "jugador" => "facu", "intentos"=> 1, "puntaje" => 6];
   $partida7 = [
     "palabraWordix"=> "YUYOS", "jugador" => "carlos", "intentos"=> 2, "puntaje" => 5];
   $partida8 = [
-    "palabraWordix"=> "PIANO", "jugador" => "franklin", "intentos"=> 3, "puntaje" => 4];
+    "palabraWordix"=> "PIANO", "jugador" => "carlos", "intentos"=> 3, "puntaje" => 4];
   $partida9 = [
     "palabraWordix"=> "RUEDA", "jugador" => "tuka", "intentos"=> 5, "puntaje" => 2];
   $partida10 = [
