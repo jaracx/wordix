@@ -113,6 +113,23 @@ function mostrarPartida($numeroPartida) {
       echo "Intento: Adivinó la palabra en " . $partida["intentos"] . " intentos\n";
   }
 }
+// Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer partida ganada por dicho jugador. Si el jugador ganó ninguna parda, la función debe retornar el valor -1. (debe ulizar las instrucciones vistas en la materia, no ulizar funciones predenidas de php
+function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador){
+  $indice = 0;
+  $encontrado = false;
+  while ($indice < count($coleccionPartidas) && !$encontrado){
+    if ($coleccionPartidas[$indice]["jugador"] == $nombreJugador && $coleccionPartidas[$indice]["puntaje"] == 6){
+      $encontrado = true;
+    } else {
+      $indice++;
+    }
+  }
+  if ($encontrado){
+    return $indice;
+  } else {
+    return -1;
+  }
+}
 
 function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
   $encontrado = false;
@@ -254,7 +271,16 @@ do {
             break;
         
         case 4: 
-            //Mostrar la primer partida ganadora
+            //Mostrar la primer partida ganadora de un jugador.
+            echo "Ingrese el nombre de usuario: ";
+            $buscarJugador = trim(fgets(STDIN));
+            $indice = buscarPrimeraPartidaGanada($coleccionPartidas, $buscarJugador);
+            if ($indice != -1){
+              mostrarPartida($indice + 1);
+            } else {
+              echo "El jugador no ha ganado ninguna partida.\n";
+            }
+
 
             break;
         case 5: 
