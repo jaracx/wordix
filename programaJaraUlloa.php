@@ -114,6 +114,26 @@ function mostrarPartida($numeroPartida) {
   }
 }
 
+function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
+  $encontrado = false;
+
+  echo "Estadísticas del jugador: $nombreJugador\n";
+  
+  foreach ($coleccionPartidas as $partida) {
+      if ($partida['jugador'] == $nombreJugador) {
+          $encontrado = true;
+          // Mostramos las estadísticas de esa partida
+          echo "Palabra: " . $partida['palabraWordix'] . "\n";
+          echo "Intentos: " . $partida['intentos'] . "\n";
+          echo "Puntaje: " . $partida['puntaje'] . " puntos\n\n";
+      }
+  }
+  
+  if (!$encontrado) {
+      echo "No se encontraron partidas para el jugador $nombreJugador.\n";
+  }
+}
+
 /* ****COMPLETAR***** */
 
 /**************************************/
@@ -239,7 +259,11 @@ do {
             break;
         case 5: 
             //Mostrar resumen de Jugador
-            echo "Ingrese el nombre de usuario: ";
+            echo "Ingrese el nombre del jugador: ";
+            $nombreJugador = trim(fgets(STDIN));
+
+            // Mostrar las estadísticas del jugador
+            mostrarEstadisticas($nombreJugador, $coleccionPartidas);
             break;
         case 6: 
             //Mostrar listado de partidas ordenadas por jugador y por palabra
