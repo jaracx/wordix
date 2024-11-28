@@ -151,6 +151,23 @@ function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
   }
 }
 
+function agregarPalabra(&$coleccionPalabras, $nuevaPalabra) {
+  // Verificar que la palabra tiene exactamente 5 letras
+  if (strlen($nuevaPalabra) == 5) {
+      // Convertir la palabra a mayúsculas
+      $nuevaPalabra = strtoupper($nuevaPalabra);
+
+      // Agregar la palabra a la colección
+      $coleccionPalabras[] = $nuevaPalabra;
+      echo "Palabra '$nuevaPalabra' agregada exitosamente.\n";
+  } else {
+      // Si la palabra no tiene 5 letras
+      echo "La palabra debe tener exactamente 5 letras.\n";
+  }
+}
+
+// Inicializamos la colección de palabras
+$coleccionPalabras = cargarColeccionPalabras();
 /* ****COMPLETAR***** */
 
 /**************************************/
@@ -297,7 +314,9 @@ do {
             break;
         case 7: 
             //Agregar una palabra de 5 letras a Wordix
-            echo "Ingrese la palabra de 5 letras a agregar: ";
+            echo "Ingrese una palabra de 5 letras: ";
+            $nuevaPalabra = trim(fgets(STDIN));  // Solicitar al usuario la palabra
+            agregarPalabra($coleccionPalabras, $nuevaPalabra);
             break;
         case 8: 
             //Salir
