@@ -239,7 +239,7 @@ do {
             } while (!$nombreValido); // sigue hasta que el nombre sea válido
             
             do {
-              $numeroPalabra = solicitarNumeroEntre(1, 15);
+              $numeroPalabra = solicitarNumeroEntre(1, count($coleccionPalabras));
             
               // Verificar si el número de palabra ya ha sido utilizado
               $palabraElegida = $arrayPalabras[$numeroPalabra - 1];
@@ -277,7 +277,7 @@ do {
             } while (!$nombreValido); // sigue hasta que el nombre sea válido
 
             do {
-              $numeroAleatorio = rand(1, 15);
+              $numeroAleatorio = rand(1, count($coleccionPalabras));
 
               // Seleccionar la palabra correspondiente en el array
               $palabraElegida = $arrayPalabras[$numeroAleatorio - 1];
@@ -293,8 +293,8 @@ do {
             break;
         case 3: 
             /* Mostrar una parda: Se le solicita al usuario un número de parda y se muestra en pantalla*/
-        
-            echo "Ingrese el número de la partida (1-10): ";
+            $num = count($coleccionPalabras);
+            echo "Ingrese el número de la partida (1 - " . $num .  " ): ";
             $numeroPartida = intval(trim(fgets(STDIN))); // entrada de usuario - (intval: se asegura que el numero ingresado sea un valor entero)
             mostrarPartida($numeroPartida);
             
