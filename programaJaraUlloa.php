@@ -151,6 +151,19 @@ function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
   }
 }
 
+// Función de comparación para uasort(), que ordena por jugador y por palabra
+function compararPartidas($a, $b) {
+  // Primero, ordenamos por el nombre del jugador
+  if ($a['jugador'] === $b['jugador']) {
+      // Si los jugadores son iguales, ordenamos por la palabra
+      return strcmp($a['palabraWordix'], $b['palabraWordix']);
+  }
+  return strcmp($a['jugador'], $b['jugador']);
+}
+
+// Ordenamos las partidas utilizando uasort() con la función de comparación
+//uasort($coleccionPartidas, 'compararPartidas');
+
 function agregarPalabra(&$coleccionPalabras, $nuevaPalabra) {
   // Verificar que la palabra tiene exactamente 5 letras
   if (strlen($nuevaPalabra) == 5) {
@@ -310,6 +323,9 @@ do {
             break;
         case 6: 
             //Mostrar listado de partidas ordenadas por jugador y por palabra
+            uasort($coleccionPartidas, 'compararPartidas');
+            echo "Listado de Pardas ordenadas por Jugador y por Palabra:\n";
+            print_r($coleccionPartidas);
 
             break;
         case 7: 
