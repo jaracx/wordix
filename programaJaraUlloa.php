@@ -33,6 +33,10 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
+/* 
+* Obtiene una coleccion de partidas
+* @return array
+*/
 function cargarPartidas(){
   $coleccionPartidas = [];
   
@@ -59,7 +63,9 @@ function cargarPartidas(){
     array_push($coleccionPartidas, $partida1, $partida2, $partida3, $partida4, $partida5, $partida6, $partida7, $partida8, $partida9, $partida10);
     return $coleccionPartidas;
 }
+/*
 
+*/
 function seleccionarOpcion(){
     // Menú de opciones
     echo "\n\e[1;37;44m**************************************\e[0m\n";  // Línea con color
@@ -80,6 +86,13 @@ function seleccionarOpcion(){
   return $opcion;
 }
 
+/*
+* Solicita un número al usuario y valida que esté dentro de un rango
+* @param string $usuario
+* @param string $palabra
+* @param array $coleccionPartidas
+* @return boolean
+*/
 function palabraUtilizada($usuario, $palabra, $coleccionPartidas){
   foreach ($coleccionPartidas as $partida){
     if ($partida["jugador"] == $usuario && $partida["palabraWordix"] == $palabra){
@@ -88,7 +101,10 @@ function palabraUtilizada($usuario, $palabra, $coleccionPartidas){
   }
   return false;
 }
-
+/*
+* muestra en pantalla los datos de una partida
+* @param int $numeroPartida
+*/
 function mostrarPartida($numeroPartida) {
   // Cargar las partidas
   $partidas = cargarPartidas();
@@ -114,6 +130,13 @@ function mostrarPartida($numeroPartida) {
   }
 }
 // Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer partida ganada por dicho jugador. Si el jugador ganó ninguna parda, la función debe retornar el valor -1. (debe ulizar las instrucciones vistas en la materia, no ulizar funciones predenidas de php
+
+/*
+* Busca la primera partida ganada por un jugador
+* @param array $coleccionPartidas
+* @param string $nombreJugador
+* @return int
+*/
 function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador){
   $indice = 0;
   $encontrado = false;
@@ -126,11 +149,16 @@ function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador){
   }
   if ($encontrado){
     return $indice;
+
   } else {
     return -1;
   }
 }
-
+ /*
+ * dado un usuario muestra sus estadisticas
+ * @param string $nombreJugador
+ * @param array $coleccionPartidas
+ */
 function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
   $encontrado = false;
 
@@ -151,7 +179,11 @@ function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
   }
 }
 
-// Función de comparación para uasort(), que ordena por jugador y por palabra
+/*
+*Función de comparación para uasort(), que ordena por jugador y por palabra
+*@param array $a
+*@param array $b
+*/
 function compararPartidas($a, $b) {
   // Primero, ordenamos por el nombre del jugador
   if ($a['jugador'] === $b['jugador']) {
@@ -164,7 +196,7 @@ function compararPartidas($a, $b) {
 // Ordenamos las partidas utilizando uasort() con la función de comparación
 //uasort($coleccionPartidas, 'compararPartidas');
 
-function agregarPalabra(&$coleccionPalabras, $nuevaPalabra) {
+function agregarPalabra($coleccionPalabras, $nuevaPalabra) {
   // Verificar que la palabra tiene exactamente 5 letras
   if (strlen($nuevaPalabra) == 5) {
       // Convertir la palabra a mayúsculas
@@ -180,7 +212,6 @@ function agregarPalabra(&$coleccionPalabras, $nuevaPalabra) {
 }
 
 // Inicializamos la colección de palabras
-$coleccionPalabras = cargarColeccionPalabras();
 /* ****COMPLETAR***** */
 
 /**************************************/
@@ -195,6 +226,7 @@ $arrayPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
 $minimoPalabras = 1;
 $maximoPalabras = count($arrayPalabras);
+$coleccionPalabras = cargarColeccionPalabras();
 
 
 
@@ -324,7 +356,7 @@ do {
         case 6: 
             //Mostrar listado de partidas ordenadas por jugador y por palabra
             uasort($coleccionPartidas, 'compararPartidas');
-            echo "Listado de Pardas ordenadas por Jugador y por Palabra:\n";
+            echo "Listado de Partidas ordenadas por Jugador y por Palabra:\n";
             print_r($coleccionPartidas);
 
             break;
