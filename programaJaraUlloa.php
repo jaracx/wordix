@@ -64,7 +64,8 @@ function cargarPartidas(){
     return $coleccionPartidas;
 }
 /*
-
+* Muestra en pantalla el menu de opciones al usuario
+* @param Int $opcion
 */
 function seleccionarOpcion(){
     // Menú de opciones
@@ -231,14 +232,6 @@ $coleccionPalabras = cargarColeccionPalabras();
 
 
 //Proceso:
-
-/*
-$partida = jugarWordix("MELON", strtolower("Facu"));
-print_r($partida);
-imprimirResultado($partida);  
-
-*/
-
 
 do {
     $opcion = seleccionarOpcion();
