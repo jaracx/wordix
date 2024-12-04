@@ -119,15 +119,17 @@ function mostrarPartida($numeroPartida) {
   $partida = $partidas[$numeroPartida - 1];
 
   // Información de la partida
-  echo "Partida WORDIX $numeroPartida:\n";
-  echo "Palabra: " . $partida["palabraWordix"] . "\n";
+  echo "**********************************\n";
+  echo "Partida WORDIX $numeroPartida: Palabra " . $partida["palabraWordix"] . "\n";
   echo "Jugador: " . $partida["jugador"] . "\n";
   echo "Puntaje: " . $partida["puntaje"] . " puntos\n";
 
   if ($partida["intentos"] == 0) {
       echo "Intento: No adivinó la palabra\n";
+      echo "**********************************\n";
   } else {
       echo "Intento: Adivinó la palabra en " . $partida["intentos"] . " intentos\n";
+      echo "**********************************\n";
   }
 }
 // Una función que dada una colección de pardas y el nombre de un jugador, retorne el índice de la primer partida ganada por dicho jugador. Si el jugador ganó ninguna parda, la función debe retornar el valor -1. (debe ulizar las instrucciones vistas en la materia, no ulizar funciones predenidas de php
