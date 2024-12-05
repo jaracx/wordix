@@ -356,27 +356,27 @@ function obtenerPuntajeWordix($nroIntento)  /* ****COMPLETAR***** parámetros fo
  * @param string $nombreUsuario
  * @return array estructura con el resumen de la partida, para poder ser utilizada en estadísticas.
  */
-function jugarWordix($palabraWordix, $nombreUsuario)
+function jugarWordix($palabraWordix, $nombreUsuario) 
 {
-    /*Inicialización*/
+    /* Inicialización */
     $arregloDeIntentosWordix = [];
     $teclado = iniciarTeclado();
     escribirMensajeBienvenida($nombreUsuario);
     $nroIntento = 1;
     $ganoElIntento = false;
+    
     do {
-
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
-
         $palabraIntento = leerPalabra5Letras();
         $indiceIntento = $nroIntento - 1;
-        $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix,$palabraIntento);
+        $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix, $palabraIntento);
         $teclado = actualizarTeclado($teclado, $arregloDeIntentosWordix[$indiceIntento]);
-        /*Mostrar los resultados del análisis: */
+        
+        /* Mostrar los resultados del análisis: */
         imprimirIntentosWordix($arregloDeIntentosWordix);
         escribirTeclado($teclado);
-        /*Determinar si la plabra intento ganó e incrementar la cantidad de intentos */
-
+        
+        /* Determinar si la palabra intento ganó e incrementar la cantidad de intentos */
         $ganoElIntento = esIntentoGanado($arregloDeIntentosWordix[$indiceIntento]);
         $nroIntento++;
     } while ($nroIntento <= CANT_INTENTOS && !$ganoElIntento);
@@ -391,6 +391,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         echo "Seguí Jugando Wordix, la próxima será! ";
     }
 
+    // Nueva partida generada
     $partida = [
         "palabraWordix" => $palabraWordix,
         "jugador" => $nombreUsuario,
@@ -398,5 +399,9 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         "puntaje" => $puntaje
     ];
 
-    return $partida;
+    // Cargar la nueva partida a la colección
+    $coleccionPartidas = cargarPartidas($partida);
+    
+    return $partida; // O puedes devolver la colección completa si es necesario
 }
+

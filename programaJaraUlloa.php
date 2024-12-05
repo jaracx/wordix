@@ -35,7 +35,7 @@ function cargarColeccionPalabras(){
 * Obtiene una coleccion de partidas
 * @return array
 */
-function cargarPartidas(){
+function cargarPartidas($partidaNueva = null){
   $coleccionPartidas = [];
   
   $partida1 = [
@@ -59,6 +59,12 @@ function cargarPartidas(){
   $partida10 = [
     "palabraWordix"=> "MELON", "jugador" => "tomi", "intentos"=> 6, "puntaje" => 0];
     array_push($coleccionPartidas, $partida1, $partida2, $partida3, $partida4, $partida5, $partida6, $partida7, $partida8, $partida9, $partida10);
+
+    // Si se pasa una nueva partida, agregarla al array
+    if ($partidaNueva !== null) {
+      array_push($coleccionPartidas, $partidaNueva);
+    }
+
     return $coleccionPartidas;
 }
 /*
@@ -165,7 +171,8 @@ function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador) {
 
 
 function mostrarEstadisticasJugador($coleccionPartidas, $nombreJugador) {
-  $partidasJugador = []; // Inicializamos correctamente
+  // Inicializamos correctamente
+  $partidasJugador = []; 
   $totalPuntaje = 0;
   $victorias = 0;
   $totalIntentos = 0;
