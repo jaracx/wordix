@@ -155,30 +155,61 @@ function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador) {
       return -1;
   }
 }
+
+
  /*
  * dado un usuario muestra sus estadisticas
  * @param string $nombreJugador
  * @param array $coleccionPartidas
  */
-function mostrarEstadisticas($nombreJugador, $coleccionPartidas) {
-  $encontrado = false;
 
-  echo "Estadísticas del jugador: $nombreJugador\n";
+
+function mostrarEstadisticasJugador($coleccionPartidas, $nombreJugador) {
+  $partidasJugador = []; // Inicializamos correctamente
+  $totalPuntaje = 0;
+  $victorias = 0;
+  $totalIntentos = 0;
   
+  // Filtrar partidas del jugador
   foreach ($coleccionPartidas as $partida) {
       if ($partida['jugador'] == $nombreJugador) {
-          $encontrado = true;
-          // Mostramos las estadísticas de esa partida
-          echo "Palabra: " . $partida['palabraWordix'] . "\n";
-          echo "Intentos: " . $partida['intentos'] . "\n";
-          echo "Puntaje: " . $partida['puntaje'] . " puntos\n\n";
+          $partidasJugador[] = $partida; // Agregamos las partidas del jugador al array
+          $totalPuntaje += $partida['puntaje'];
+          $totalIntentos++;
+          if ($partida['puntaje'] > 0) {
+              $victorias++;
+          }
       }
   }
-  
-  if (!$encontrado) {
-      echo "No se encontraron partidas para el jugador $nombreJugador.\n";
+
+  // Verificar si el jugador tiene partidas
+  if (count($partidasJugador) === 0) {
+      echo "El jugador '$nombreJugador' no tiene partidas registradas.\n";
+      return;
   }
+
+  // Calcular porcentaje de victorias
+  $porcentajeVictorias = ($totalIntentos > 0) ? ($victorias / $totalIntentos) * 100 : 0;
+
+  // Mostrar estadísticas
+  echo "**********************************\n";
+  echo "Jugador: $nombreJugador\n";
+  echo "Partidas: $totalIntentos\n";
+  echo "Puntaje Total: $totalPuntaje\n";
+  echo "Victorias: $victorias\n";
+  echo "Porcentaje Victorias: " . round($porcentajeVictorias, 2) . "%\n";
+
+  // Mostrar detalle de adivinadas
+  echo "Adivinadas:\n";
+  $intento = 1;
+  foreach ($partidasJugador as $partida) { // Recorremos correctamente el array de partidas
+      $puntos = $partida['puntaje'];
+      echo "    Intento $intento: $puntos punto" . ($puntos != 1 ? 's' : '') . "\n";
+      $intento++;
+  }
+  echo "**********************************\n";
 }
+
 
 /*
 *Función de comparación para uasort(), que ordena por jugador y por palabra
@@ -351,7 +382,7 @@ do {
             $nombreJugador = trim(fgets(STDIN));
 
             // Mostrar las estadísticas del jugador
-            mostrarEstadisticas($nombreJugador, $coleccionPartidas);
+            mostrarEstadisticasJugador($coleccionPartidas, $nombreJugador);
             break;
         case 6: 
             //Mostrar listado de partidas ordenadas por jugador y por palabra
