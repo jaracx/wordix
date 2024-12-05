@@ -21,15 +21,13 @@ include_once("wordix.php");
  * Obtiene una colección de palabras
  * @return array
  */
-function cargarColeccionPalabras()
-{
+function cargarColeccionPalabras(){
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "MANTA", "RASGO",
         "PERRO", "PAPEL", "HUEVO", "TINTO", "RUEDA",
         "VERDE", "MELON", "YUYOS", "PIANO", "GORRA"
         /* Agregar 5 palabras más */
     ];
-
     return ($coleccionPalabras);
 }
 
@@ -59,7 +57,7 @@ function cargarPartidas(){
   $partida9 = [
     "palabraWordix"=> "RUEDA", "jugador" => "tuka", "intentos"=> 2, "puntaje" => 16];
   $partida10 = [
-    "palabraWordix"=> "MELON", "jugador" => "tomi", "intentos"=> 6, "puntaje" => 8];
+    "palabraWordix"=> "MELON", "jugador" => "tomi", "intentos"=> 6, "puntaje" => 0];
     array_push($coleccionPartidas, $partida1, $partida2, $partida3, $partida4, $partida5, $partida6, $partida7, $partida8, $partida9, $partida10);
     return $coleccionPartidas;
 }
@@ -140,21 +138,21 @@ function mostrarPartida($numeroPartida) {
 * @param string $nombreJugador
 * @return int
 */
-function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador){
+function buscarPrimeraPartidaGanada($coleccionPartidas, $nombreJugador) {
   $indice = 0;
   $encontrado = false;
-  while ($indice < count($coleccionPartidas) && !$encontrado){
-    if ($coleccionPartidas[$indice]["jugador"] == $nombreJugador && $coleccionPartidas[$indice]["puntaje"] == 6){
-      $encontrado = true;
-    } else {
-      $indice++;
-    }
+  while ($indice < count($coleccionPartidas) && !$encontrado) {
+      // Verificar si el puntaje es mayor a 0
+      if ($coleccionPartidas[$indice]["jugador"] == $nombreJugador && $coleccionPartidas[$indice]["puntaje"] > 0) {
+          $encontrado = true;
+      } else {
+          $indice++;
+      }
   }
-  if ($encontrado){
-    return $indice;
-
+  if ($encontrado) {
+      return $indice;
   } else {
-    return -1;
+      return -1;
   }
 }
  /*
@@ -199,20 +197,23 @@ function compararPartidas($a, $b) {
 // Ordenamos las partidas utilizando uasort() con la función de comparación
 //uasort($coleccionPartidas, 'compararPartidas');
 
-function agregarPalabra($coleccionPalabras, $nuevaPalabra) {
-  // Verificar que la palabra tiene exactamente 5 letras
-  if (strlen($nuevaPalabra) == 5) {
-      // Convertir la palabra a mayúsculas
-      $nuevaPalabra = strtoupper($nuevaPalabra);
-
-      // Agregar la palabra a la colección
-      $coleccionPalabras[] = $nuevaPalabra;
-      echo "Palabra '$nuevaPalabra' agregada exitosamente.\n";
+function agregarPalabra(&$coleccionPalabras, $nuevaPalabra) {
+  // Validar que la palabra tenga exactamente 5 letras
+  if (ctype_alpha($nuevaPalabra) && strlen($nuevaPalabra) == 5) {
+      $nuevaPalabra = strtoupper($nuevaPalabra); // Convertir a mayúsculas
+      if (!in_array($nuevaPalabra, $coleccionPalabras)) {
+          // Agregar la palabra al array usando array_push
+          array_push($coleccionPalabras, $nuevaPalabra);
+          echo "La palabra '$nuevaPalabra' ha sido agregada correctamente.\n";
+      } else {
+          echo "La palabra '$nuevaPalabra' ya existe en la colección.\n";
+      }
   } else {
-      // Si la palabra no tiene 5 letras
-      echo "La palabra debe tener exactamente 5 letras.\n";
+      echo "La palabra ingresada no es válida. Debe tener exactamente 5 letras y solo caracteres alfabéticos.\n";
   }
 }
+
+
 
 // Inicializamos la colección de palabras
 /* ****COMPLETAR***** */
@@ -320,7 +321,7 @@ do {
             break;
         case 3: 
             /* Mostrar una parda: Se le solicita al usuario un número de parda y se muestra en pantalla*/
-            $num = count($coleccionPalabras);
+            $num = count($coleccionPartidas);
             echo "Ingrese el número de la partida (1 - " . $num .  " ): ";
             $numeroPartida = intval(trim(fgets(STDIN))); // entrada de usuario - (intval: se asegura que el numero ingresado sea un valor entero)
             mostrarPartida($numeroPartida);
@@ -334,7 +335,11 @@ do {
             $indice = buscarPrimeraPartidaGanada($coleccionPartidas, $buscarJugador);
             if ($indice != -1){
               mostrarPartida($indice + 1);
-            } else {
+            } elseif(!ctype_alpha($buscarJugador)){
+              // Verificar si el nombre es válido (solo contiene letras)
+              echo "El nombre ingresado no es válido. Debe ser un nombre válido con solo letras.\n";
+              //puedes permitir reintentar
+            }else {
               echo "El jugador no ha ganado ninguna partida.\n";
             }
 

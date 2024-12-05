@@ -1,5 +1,4 @@
 <?php
-
 /*
 La librería JugarWordix posee la definición de constantes y funciones necesarias
 para jugar al Wordix.
@@ -32,8 +31,7 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 function solicitarNumeroEntre($min, $max)
 {
     //int $numero
-
-    echo "ingresar un numero del 1 al 15: ";
+    echo "ingresar un numero del 1 al " . $max;
     echo "\n";
     $numero = trim(fgets(STDIN));
 
