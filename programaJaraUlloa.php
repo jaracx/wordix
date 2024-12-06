@@ -110,17 +110,16 @@ function palabraUtilizada($usuario, $palabra, $coleccionPartidas){
 * muestra en pantalla los datos de una partida
 * @param int $numeroPartida
 */
-function mostrarPartida($numeroPartida) {
+function mostrarPartida($numeroPartida,$coleccionPartidas) {
   // Cargar las partidas
-  $partidas = cargarPartidas();
 
   // Validar número
-  if ($numeroPartida < 1 || $numeroPartida > 10) {
+  if ($numeroPartida < 1 || $numeroPartida > $coleccionPartidas) {
       echo "Número de partida inválido.\n";
       return;
   }
 
-  $partida = $partidas[$numeroPartida - 1];
+  $partida = $coleccionPartidas[$numeroPartida - 1];
 
   // Información de la partida
   echo "**********************************\n";
@@ -264,11 +263,11 @@ function agregarPalabra(&$coleccionPalabras, $nuevaPalabra) {
 
 //Inicialización de variables:
 
-$arrayPalabras = cargarColeccionPalabras();
+//$arrayPalabras = cargarColeccionPalabras();
+$coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
 $minimoPalabras = 1;
-$maximoPalabras = count($arrayPalabras);
-$coleccionPalabras = cargarColeccionPalabras();
+$maximoPalabras = count($coleccionPalabras);
 
 
 
@@ -308,7 +307,7 @@ do {
               $numeroPalabra = solicitarNumeroEntre(1, count($coleccionPalabras));
             
               // Verificar si el número de palabra ya ha sido utilizado
-              $palabraElegida = $arrayPalabras[$numeroPalabra - 1];
+              $palabraElegida = $coleccionPalabras[$numeroPalabra - 1];
               $palabraUtilizada = palabraUtilizada($nombreUsuario, $palabraElegida, $coleccionPartidas);
             
               if ($palabraUtilizada) {
@@ -346,7 +345,7 @@ do {
               $numeroAleatorio = rand(1, count($coleccionPalabras));
 
               // Seleccionar la palabra correspondiente en el array
-              $palabraElegida = $arrayPalabras[$numeroAleatorio - 1];
+              $palabraElegida = $coleccionPalabras[$numeroAleatorio - 1];
               $palabraUtilizada = palabraUtilizada($nombreUsuario, $palabraElegida, $coleccionPartidas);
             
               if ($palabraUtilizada) {
@@ -360,10 +359,10 @@ do {
         case 3: 
             /* Mostrar una parda: Se le solicita al usuario un número de parda y se muestra en pantalla*/
             $num = count($coleccionPartidas);
-            echo "Ingrese el número de la partida (1 - " . $num .  " ): ";
+            echo "Ingrese el número de la partida (1 - " . $num-1 .  " ): ";
             $numeroPartida = intval(trim(fgets(STDIN))); // entrada de usuario - (intval: se asegura que el numero ingresado sea un valor entero)
-            mostrarPartida($numeroPartida);
-            
+            mostrarPartida($numeroPartida-1, $coleccionPartidas);
+            print_r($coleccionPartidas);
             break;
         
         case 4: 
@@ -372,7 +371,7 @@ do {
             $buscarJugador = trim(fgets(STDIN));
             $indice = buscarPrimeraPartidaGanada($coleccionPartidas, $buscarJugador);
             if ($indice != -1){
-              mostrarPartida($indice + 1);
+              mostrarPartida($indice + 1, $coleccionPartidas);
             } elseif(!ctype_alpha($buscarJugador)){
               // Verificar si el nombre es válido (solo contiene letras)
               echo "El nombre ingresado no es válido. Debe ser un nombre válido con solo letras.\n";
